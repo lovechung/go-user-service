@@ -1,0 +1,30 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 0s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 0s
+
+data:
+  database:
+    driver: mysql
+    source: root:Jicco_2021@tcp(139.224.187.162:3306)/test?parseTime=true&loc=Local
+  redis:
+    addr: 139.224.187.162:6379
+    password: Jicco_2021
+    dial_timeout: 1s
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+
+otel:
+  endpoint: 139.224.187.162:4317
+
+log:
+  file: /Users/xiaokang/Documents/logs/app.log
+
+consul:
+  address: 139.224.187.162:8500
+  scheme: http
+  token: 'f86ff0d5-ee3d-70af-a01a-8e5634bd785c'
+  health_check: false
