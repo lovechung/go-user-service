@@ -65,7 +65,7 @@ func loadConfig() (*conf.Bootstrap, *conf.Registry) {
 // 加载otel配置
 func loadOtel(bc *conf.Bootstrap) {
 	bootstrap.NewTracerProvider(bc.Otel.Endpoint, Flags.Env, &Service)
-	bootstrap.NewMetricProvider(bc.Otel.Endpoint, Flags.Env, &Service, true)
+	bootstrap.NewMetricProvider(bc.Otel.Endpoint, Flags.Env, &Service)
 }
 
 // 加载日志配置

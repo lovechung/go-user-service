@@ -10,7 +10,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/hashicorp/consul/api v1.13.0
 	github.com/lovechung/api-base v0.0.8
-	github.com/lovechung/go-kit v0.1.1
+	github.com/lovechung/go-kit v0.1.2
 	github.com/rueian/rueidis v0.0.54
 	go.opentelemetry.io/otel v1.7.0
 	go.opentelemetry.io/otel/metric v0.30.0
@@ -29,7 +29,6 @@ require (
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20220604031450-874d4c3edcf5 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
 	github.com/go-playground/form/v4 v4.2.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -46,19 +45,12 @@ require (
 	github.com/hashicorp/serf v0.9.6 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
-	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
-	github.com/shirou/gopsutil/v3 v3.22.3 // indirect
-	github.com/tklauser/go-sysconf v0.3.10 // indirect
-	github.com/tklauser/numcpus v0.4.0 // indirect
-	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/host v0.32.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.7.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric v0.30.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.30.0 // indirect

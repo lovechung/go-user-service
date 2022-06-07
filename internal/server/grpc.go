@@ -19,8 +19,8 @@ import (
 
 // NewGRPCServer new a gRPC server.
 func NewGRPCServer(c *conf.Server, us *service.UserService, logger log.Logger) *grpc.Server {
-	meter := global.Meter("user-serivce")
-	requestHistogram, _ := meter.SyncInt64().Histogram("request_seconds", instrument.WithUnit(unit.Milliseconds))
+	meter := global.Meter("user-service")
+	requestHistogram, _ := meter.SyncInt64().Histogram("user_service_req", instrument.WithUnit(unit.Milliseconds))
 
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
