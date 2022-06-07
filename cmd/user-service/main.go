@@ -64,10 +64,8 @@ func loadConfig() (*conf.Bootstrap, *conf.Registry) {
 
 // 加载otel配置
 func loadOtel(bc *conf.Bootstrap) {
-	shutdownTrace := bootstrap.NewTracerProvider(bc.Otel.Endpoint, Flags.Env, &Service)
-	defer shutdownTrace()
-	shutdownMetric := bootstrap.NewMetricProvider(bc.Otel.Endpoint, Flags.Env, &Service, false)
-	defer shutdownMetric()
+	bootstrap.NewTracerProvider(bc.Otel.Endpoint, Flags.Env, &Service)
+	bootstrap.NewMetricProvider(bc.Otel.Endpoint, Flags.Env, &Service, true)
 }
 
 // 加载日志配置
