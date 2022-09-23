@@ -2,9 +2,10 @@ package data
 
 import (
 	"context"
+	"database/sql"
 	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"fmt"
+	entsql "entgo.io/ent/dialect/sql"
+	"github.com/XSAM/otelsql"
 	"github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -14,10 +15,7 @@ import (
 	"github.com/rueian/rueidis"
 	"github.com/rueian/rueidis/rueidiscompat"
 	"github.com/rueian/rueidis/rueidisotel"
-	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/trace"
-	"strings"
+	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 	"user-service/internal/biz"
 	"user-service/internal/conf"
 	"user-service/internal/data/ent"
@@ -84,37 +82,42 @@ func NewData(db *ent.Client, rds rueidis.Client, logger log.Logger) (*Data, func
 func NewDB(conf *conf.Data, logger log.Logger) *ent.Client {
 	thisLog := log.NewHelper(logger)
 
-	drv, err := sql.Open(
+	// 注册sql tracing
+	driverName, err := otelsql.Register(
 		conf.Database.Driver,
-		conf.Database.Source,
+		otelsql.WithAttributes(semconv.DBSystemMariaDB),
+		otelsql.WithSpanOptions(
+			otelsql.SpanOptions{
+				DisableErrSkip:       true,
+				OmitConnectorConnect: true,
+				OmitConnResetSession: true,
+				OmitConnPrepare:      true,
+				OmitRows:             true,
+			}),
 	)
-	// 打印sql日志
-	sqlDrv := dialect.DebugWithContext(drv, func(ctx context.Context, i ...interface{}) {
-		thisLog.WithContext(ctx).Debug(i...)
-		// 开启db trace
-		tracer := otel.Tracer("entgo.io/ent")
-		// 组装sql信息
-		fullSql := fmt.Sprint(i...)
-		args := strings.Index(fullSql, "args=")
-		_, span := tracer.Start(ctx,
-			fullSql[strings.Index(fullSql, ".")+1:strings.Index(fullSql, ":")],
-			trace.WithAttributes(
-				attribute.String("sql", fullSql[strings.Index(fullSql, "=")+1:args]),
-				attribute.String("sql.args", fullSql[args+6:len(fullSql)-1]),
-			),
-		)
-		defer span.End()
-	})
-	db := ent.NewClient(ent.Driver(sqlDrv))
+	if err != nil {
+		thisLog.Fatalf("sql tracing注册失败: %v", err)
+	}
 
+	// 连接数据库
+	db, err := sql.Open(driverName, conf.Database.Source)
 	if err != nil {
 		thisLog.Fatalf("数据库连接失败: %v", err)
 	}
+
+	// 初始化ent客户端
+	drv := entsql.OpenDB(conf.Database.Driver, db)
+	// 配置sql日志打印
+	sqlDrv := dialect.DebugWithContext(drv, func(ctx context.Context, i ...interface{}) {
+		thisLog.WithContext(ctx).Debug(i...)
+	})
+	client := ent.NewClient(ent.Driver(sqlDrv))
+
 	// 运行自动创建表
 	//if err := db.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
 	//	thisLog.Fatalf("创建表失败: %v", err)
 	//}
-	return db
+	return client
 }
 
 func NewRedis(conf *conf.Data, logger log.Logger) rueidis.Client {
