@@ -7,11 +7,12 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20220604031450-874d4c3edcf5
 	github.com/go-kratos/kratos/v2 v2.3.1
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/google/wire v0.5.0
 	github.com/hashicorp/consul/api v1.13.0
 	github.com/lovechung/api-base v0.0.8
 	github.com/lovechung/go-kit v0.1.2
-	github.com/rueian/rueidis v0.0.54
+	github.com/rueian/rueidis v0.0.77
 	go.opentelemetry.io/otel v1.7.0
 	go.opentelemetry.io/otel/metric v0.30.0
 	go.opentelemetry.io/otel/trace v1.7.0
@@ -63,9 +64,9 @@ require (
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
-	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
+	golang.org/x/net v0.0.0-20220630215102-69896b714898 // indirect
 	golang.org/x/sync v0.0.0-20220513210516-0976fa681c29 // indirect
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+	golang.org/x/sys v0.0.0-20220704084225-05e143d24a9e // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20220524023933-508584e28198 // indirect
 	google.golang.org/grpc v1.47.0 // indirect

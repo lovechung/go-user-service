@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"github.com/go-kratos/kratos/v2/log"
+	jwtV4 "github.com/golang-jwt/jwt/v4"
 	v1 "github.com/lovechung/api-base/api/user"
 	"github.com/lovechung/go-kit/util/pagination"
 	"github.com/lovechung/go-kit/util/time"
@@ -71,7 +72,7 @@ func (s *UserService) SaveUser(ctx context.Context, req *v1.SaveUserReq) (*empty
 		Username: &req.Username,
 		Password: &req.Password,
 	})
-	return nil, err
+	return &emptypb.Empty{}, err
 }
 
 func (s *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*emptypb.Empty, error) {
@@ -80,10 +81,10 @@ func (s *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*e
 		Username: req.Username,
 		Password: req.Password,
 	})
-	return nil, err
+	return &emptypb.Empty{}, err
 }
 
 func (s *UserService) DeleteUser(ctx context.Context, req *wrapperspb.Int64Value) (*emptypb.Empty, error) {
 	err := s.uc.DeleteUser(ctx, req.Value)
-	return nil, err
+	return &emptypb.Empty{}, err
 }

@@ -13,9 +13,11 @@ import (
 	consulApi "github.com/hashicorp/consul/api"
 	"github.com/rueian/rueidis"
 	"github.com/rueian/rueidis/rueidiscompat"
+	"github.com/rueian/rueidis/rueidisotel"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
+	"strings"
 	"user-service/internal/biz"
 	"user-service/internal/conf"
 	"user-service/internal/data/ent"
@@ -91,10 +93,14 @@ func NewDB(conf *conf.Data, logger log.Logger) *ent.Client {
 		thisLog.WithContext(ctx).Debug(i...)
 		// 开启db trace
 		tracer := otel.Tracer("entgo.io/ent")
+		// 组装sql信息
+		fullSql := fmt.Sprint(i...)
+		args := strings.Index(fullSql, "args=")
 		_, span := tracer.Start(ctx,
-			"query",
+			fullSql[strings.Index(fullSql, ".")+1:strings.Index(fullSql, ":")],
 			trace.WithAttributes(
-				attribute.String("sql", fmt.Sprint(i...)),
+				attribute.String("sql", fullSql[strings.Index(fullSql, "=")+1:args]),
+				attribute.String("sql.args", fullSql[args+6:len(fullSql)-1]),
 			),
 		)
 		defer span.End()
@@ -120,8 +126,7 @@ func NewRedis(conf *conf.Data, logger log.Logger) rueidis.Client {
 		SelectDB:         int(conf.Redis.Db),
 		ConnWriteTimeout: conf.Redis.WriteTimeout.AsDuration(),
 	})
-	// todo rueidisotel支持的otel版本过低，导致启动报错
-	//client = rueidisotel.WithClient(client)
+	client = rueidisotel.WithClient(client)
 
 	if err != nil {
 		thisLog.Fatalf("redis连接失败: %v", err)
