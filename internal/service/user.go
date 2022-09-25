@@ -9,6 +9,8 @@ import (
 	"github.com/lovechung/go-kit/util/time"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
+	"math/rand"
+	"time"
 	"user-service/internal/biz"
 )
 
@@ -33,6 +35,13 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.Li
 		userInfo := ConvertToUserReply(user)
 		rsp.List = append(rsp.List, userInfo)
 	}
+
+	// 睡眠模拟慢查询
+	rand.Seed(time.Now().UnixNano())
+	spent := rand.Intn(6)
+	s.log.WithContext(ctx).Infof("此次慢查询耗时: %ds", spent)
+	time.Sleep(time.Second * time.Duration(spent))
+
 	return rsp, err
 }
 
@@ -40,6 +49,13 @@ func (s *UserService) GetUser(ctx context.Context, req *wrapperspb.Int64Value) (
 
 	// 打印一条trace日志
 	s.log.WithContext(ctx).Infof("我是一条【%s】trace日志噢", "info")
+
+	claims := jwtV4.NewWithClaims(jwtV4.SigningMethodHS256,
+		jwtV4.MapClaims{
+			"userId": 123,
+		})
+	token, _ := claims.SignedString([]byte("123456"))
+	s.log.WithContext(ctx).Infof("token=%s", token)
 
 	user, err := s.uc.GetUserById(ctx, req.Value)
 	if err != nil {

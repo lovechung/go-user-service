@@ -14,7 +14,6 @@ import (
 	consulApi "github.com/hashicorp/consul/api"
 	"github.com/rueian/rueidis"
 	"github.com/rueian/rueidis/rueidiscompat"
-	"github.com/rueian/rueidis/rueidisotel"
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 	"user-service/internal/biz"
 	"user-service/internal/conf"
@@ -129,7 +128,8 @@ func NewRedis(conf *conf.Data, logger log.Logger) rueidis.Client {
 		SelectDB:         int(conf.Redis.Db),
 		ConnWriteTimeout: conf.Redis.WriteTimeout.AsDuration(),
 	})
-	client = rueidisotel.WithClient(client)
+	// todo 等rueidis升级otel版本
+	//client = rueidisotel.WithClient(client)
 
 	if err != nil {
 		thisLog.Fatalf("redis连接失败: %v", err)
