@@ -3,7 +3,7 @@ module user-service
 go 1.18
 
 require (
-	entgo.io/ent v0.10.1
+	entgo.io/ent v0.11.0
 	github.com/XSAM/otelsql v0.16.0
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20220604031450-874d4c3edcf5
 	github.com/go-kratos/kratos/v2 v2.5.0
@@ -12,7 +12,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/hashicorp/consul/api v1.13.0
 	github.com/lovechung/api-base v0.0.8
-	github.com/lovechung/go-kit v0.2.0
+	github.com/lovechung/go-kit v0.3.1
 	github.com/rueian/rueidis v0.0.77
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/metric v0.32.1
@@ -20,7 +20,7 @@ require (
 )
 
 require (
-	ariga.io/atlas v0.3.7-0.20220303204946-787354f533c3 // indirect
+	ariga.io/atlas v0.4.3-0.20220711120113-a190b01c6ef9 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
@@ -45,12 +45,11 @@ require (
 	github.com/hashicorp/hcl/v2 v2.14.1 // indirect
 	github.com/hashicorp/serf v0.9.6 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
-	github.com/mitchellh/mapstructure v1.4.3 // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.10.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric v0.32.1 // indirect

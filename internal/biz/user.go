@@ -58,16 +58,11 @@ func (uc *UserUseCase) SaveUser(ctx context.Context, u *User) error {
 }
 
 func (uc *UserUseCase) UpdateUser(ctx context.Context, u *User) error {
-	var err error
 	// 带有事务的操作
 	if e := uc.tx.ExecTx(ctx, func(ctx context.Context) error {
-		err = uc.r.Update(ctx, u)
-		if err != nil {
-			return err
-		}
-		return nil
+		return uc.r.Update(ctx, u)
 	}); e != nil {
-		return err
+		return e
 	}
 	return nil
 }

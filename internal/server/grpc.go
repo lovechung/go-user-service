@@ -30,6 +30,9 @@ func NewGRPCServer(c *conf.Server, us *service.UserService, logger log.Logger) *
 				metrics.Server(
 					metrics.WithSeconds(contrib.NewHistogram(requestHistogram)),
 				),
+				//jwt.Server(func(token *jwtV4.Token) (interface{}, error) {
+				//	return []byte("123456"), nil
+				//}),
 				logging.Server(logger),
 			),
 		),
