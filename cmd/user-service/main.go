@@ -13,7 +13,7 @@ import (
 // go build -ldflags "-X main.Service.Version=x.y.z"
 var (
 	Service = bootstrap.NewServiceInfo(
-		"prd",
+		"dev",
 		"user-service",
 		"1.0.0",
 		"",

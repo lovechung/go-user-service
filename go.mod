@@ -12,7 +12,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/hashicorp/consul/api v1.13.0
 	github.com/lovechung/api-base v0.0.8
-	github.com/lovechung/go-kit v0.3.1
+	github.com/lovechung/go-kit v0.3.3
 	github.com/rueian/rueidis v0.0.77
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/metric v0.32.1
