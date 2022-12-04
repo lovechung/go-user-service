@@ -2,11 +2,9 @@ package schema
 
 import (
 	"entgo.io/ent"
-	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
-	"time"
 )
 
 // User holds the schema definition for the User entity.
@@ -29,11 +27,13 @@ func (User) Fields() []ent.Field {
 		field.String("password").
 			Optional(),
 		field.Time("created_at").
-			Default(time.Now().Local).
-			SchemaType(map[string]string{dialect.MySQL: "datetime"}),
+			Optional(),
+		//Default(time.Now().Local).
+		//SchemaType(map[string]string{dialect.MySQL: "datetime"}),
 		field.Time("updated_at").
-			Default(time.Now().Local).
-			SchemaType(map[string]string{dialect.MySQL: "datetime"}),
+			Optional(),
+		//Default(time.Now().Local).
+		//SchemaType(map[string]string{dialect.MySQL: "datetime"}),
 	}
 }
 

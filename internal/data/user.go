@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lovechung/go-kit/util/pagination"
+	"time"
 	"user-service/internal/biz"
 	"user-service/internal/data/ent"
 	"user-service/internal/data/ent/predicate"
@@ -115,6 +116,7 @@ func (r userRepo) Save(ctx context.Context, u *biz.User) (int64, error) {
 	rsp, err := r.data.db.User.
 		Create().
 		SetUser(u).
+		SetCreatedAt(time.Now()).
 		Save(ctx)
 	return rsp.ID, err
 }
@@ -125,6 +127,7 @@ func (r userRepo) Update(ctx context.Context, u *biz.User) error {
 		Update().
 		Where(user.ID(u.Id)).
 		SetUser(u).
+		SetUpdatedAt(time.Now()).
 		Exec(ctx)
 	// 模拟一个异常
 	if u.Password != nil && *u.Password == "123456" {
