@@ -9,8 +9,6 @@ import (
 	"github.com/lovechung/go-kit/util/time"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
-	"math/rand"
-	"time"
 	"user-service/internal/biz"
 )
 
@@ -37,10 +35,10 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.Li
 	}
 
 	// 睡眠模拟慢查询
-	rand.Seed(time.Now().UnixNano())
-	spent := rand.Intn(6)
-	s.log.WithContext(ctx).Infof("此次慢查询耗时: %ds", spent)
-	time.Sleep(time.Second * time.Duration(spent))
+	//rand.Seed(time.Now().UnixNano())
+	//spent := rand.Intn(6)
+	//s.log.WithContext(ctx).Infof("此次慢查询耗时: %ds", spent)
+	//time.Sleep(time.Second * time.Duration(spent))
 
 	return rsp, err
 }

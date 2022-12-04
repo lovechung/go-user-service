@@ -88,7 +88,7 @@ func (r userRepo) GetUsername(ctx context.Context, id int64) (string, error) {
 
 	// 模拟一个异常
 	if id == 1 {
-		return "", ex.UserNotFound
+		return "", ex.UserIsFreeze
 	}
 
 	return u.Username, nil
